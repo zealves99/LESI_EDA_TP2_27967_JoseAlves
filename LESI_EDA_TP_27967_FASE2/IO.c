@@ -20,5 +20,6 @@ void ShowNode(GR* graph, Node* node) {
 }
 
 void ShowNodeWeight(int id, int weight) {
-    printf("Vertice: %d -> Peso: %d\n", id, weight);
+    if (weight == 0);
+    else printf("Vertice: %d -> Peso: %d\n", id, weight);
 }

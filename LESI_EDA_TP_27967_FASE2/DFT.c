@@ -14,6 +14,8 @@
 #include "Global.h"
 #include "Stack.h"
 
+//#define DEBUG
+
 void ResetVisitedNodes(GR* graph) {
     Node* aux = graph->headGraph;
     while (aux) {
@@ -80,16 +82,20 @@ bool DepthFirstSearch(GR* graph, int origin, int destiny) {
     Node* aux = WhereIsNodeGraph(graph, origin);
     AdjListNode* adj = aux->next;
     if (origin == destiny) {
-        ShowNodeWeight(aux->value, adj->weight);
-        return true;
+            ShowNodeWeight(aux->value, adj->weight);
+            return true;
     }
     aux->visited = true;
 
-    ShowNodeWeight(aux->value, adj->weight);
+    ShowNodeWeight(adj->value, adj->weight);
 
     while (adj) {
         Node* aux2 = WhereIsNodeGraph(graph, adj->value);
-        if (aux2->visited == false) {
+        if (aux2->visited == false && adj->weight != 0) {
+            #ifdef DEBUG 
+                printf("vertice atual %d\n", aux2->value);
+            #endif
+
             bool exist = DepthFirstSearch(graph, adj->value, destiny);
             return exist;
         }

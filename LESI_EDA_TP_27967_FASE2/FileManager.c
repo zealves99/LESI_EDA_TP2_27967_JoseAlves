@@ -29,13 +29,8 @@ GR* ImportData(char fileName[], bool* res) {
         return NULL;
         *res = false;
     }
-    int vertexCounter = 0;
-   //lê o ficheiro para saber quantos vértices vamos ter no grafo.
-    while (!feof(fp)) {
-        if (fgetc(fp) == '\n') vertexCounter++;
-    }
-    //cria um grafo com o número de vértices obtido.
-    GR* graph=CreateGraph(vertexCounter);
+ 
+    GR* graph=CreateGraph(0);
 
     int weight = 0;
     char character;

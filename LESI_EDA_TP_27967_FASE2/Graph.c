@@ -408,7 +408,11 @@ void ShowGraph(GR* graph) {
         AdjListNode* adjacent = current->next;
         while (adjacent!=NULL)
         {
-            printf("\t\t adjacent: %d \t  weight: %d\n", adjacent->value, adjacent->weight);
+            if (adjacent->weight == 0);
+
+            else {
+                printf("\t\t adjacent: %d \t  weight: %d\n", adjacent->value, adjacent->weight);
+            }
             adjacent = adjacent->next;
         }
         current = current->nextNode;

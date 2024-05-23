@@ -46,6 +46,7 @@ int ColumnSum(GR* graph, int columnNumber) {
         }
         sum += aux->weight;
         node = node->nextNode;
+        
     }
     return sum;
 }

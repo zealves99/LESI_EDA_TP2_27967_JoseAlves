@@ -14,8 +14,11 @@
 #include<malloc.h>
 #include"Function.h"
 #include"DFT.h"
+#include<locale.h>
 
 int main() {
+
+    setlocale(LC_ALL, "Portuguese");
 
     bool res;
     int resultado=0;
@@ -24,7 +27,7 @@ int main() {
     /*res = OpenGraph("Graph.bin", graph);
     ShowGraph(graph);*/
 
-    graph=ImportData("Lista.CSV", &res);
+    graph=ImportData("graph_edges.CSV", &res);
     if (res == false) {
         printf("Erro ao Importar Dados!\n");
     }
@@ -39,11 +42,13 @@ int main() {
     sum = ColumnSum(graph, column);
     printf("Soma coluna %d = %d\n", line, sum);
 
-    res = DepthFirstTraversal(graph, 1);
-    res = DepthFirstSearch(graph, 1, 2);
+    //res = DepthFirstTraversal(graph, 1);
 
-    resultado = CountPaths(graph, 1, 3, resultado);
-    printf("Numero de caminhos entre os vértices 0 e 3: %d\n", resultado);
+    printf("\n");
+    res = DepthFirstSearch(graph, 1, 10);
+
+    //resultado = CountPaths(graph, 1, 3, resultado);
+    printf("Número de caminhos entre os vértices 0 e 3: %d\n", resultado);
 
     res = SaveGraph("Graph.bin", graph);
 }
