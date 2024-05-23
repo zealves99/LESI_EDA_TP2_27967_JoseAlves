@@ -1,4 +1,2 @@
-﻿  DFT.c
-H:\LESI\EDA\LESI_EDA_TP2_27967_JoseAlves\LESI_EDA_TP_27967_FASE2\DFT.c(72): warning C4716: 'DepthFirstTraversal': must return a value
-H:\LESI\EDA\LESI_EDA_TP2_27967_JoseAlves\LESI_EDA_TP_27967_FASE2\DFT.c(107): warning C4715: 'DepthFirstSearch': not all control paths return a value
+﻿  Main.c
   LESI_EDA_TP_27967_FASE2.vcxproj -> H:\LESI\EDA\LESI_EDA_TP2_27967_JoseAlves\x64\Debug\LESI_EDA_TP_27967_FASE2.exe

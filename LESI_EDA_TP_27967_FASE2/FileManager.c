@@ -111,6 +111,12 @@ bool SaveGraph(char fileName[], GR* graph) {
     return true;
 }
 
+/**
+    @brief  Função que abre um grafo de um ficheiro binário e o carrega na memória.
+    @param  fileName - Nome do ficheiro a lêr.
+    @param  graph    - Apontador para a estrutura de grafo a importar.
+    @retval          - True ou False, consoante conseguiu ou não importar o grafo.
+**/
 bool OpenGraph(char* fileName[], GR* graph) {
     FILE* fp = fopen(fileName, "rb");
     if (fp == NULL) return false;

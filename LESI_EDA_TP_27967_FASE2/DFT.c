@@ -1,8 +1,8 @@
 /**
 
     @file      DFT.c
-    @brief     
-    @details   ~
+    @brief     Ficheiro que contém as funções necessárias às operações DFT de um grafo.
+    @details   Travessia, Número de caminhos entre vértices, Vértice mais próximo, etc.
     @author    José António da Cunha Alves
     @date      22.05.2024
     @copyright © José António da Cunha Alves, 2024. All right reserved.
@@ -16,6 +16,10 @@
 
 //#define DEBUG
 
+/**
+    @brief Função que coloca todos os vértices de um grafo como 'não visitado'.
+    @param graph - Apontador para a estrutura do grafo.
+**/
 void ResetVisitedNodes(GR* graph) {
     Node* aux = graph->headGraph;
     while (aux) {
@@ -26,33 +30,39 @@ void ResetVisitedNodes(GR* graph) {
 
 /**
     @brief  Função que verifica qual o vértice adjacente mais próximo não visitado.
-    @param  graph - 
-    @param  v     - 
-    @retval       - 
+    @param  graph - Apontador para a estrutura do grafo.
+    @param  v     - ID do vértice a procurar.
+    @retval       - Vértice mais próximo.
 **/
-int GetClosestVerticeAdjUnvisited(GR* graph, int v) {
-    if (!graph)return -1;
-    if (!ExistNodeGraph(graph, v)) return -2;
+Node* GetClosestVerticeAdjUnvisited(GR* graph, int v) {
+    if (!graph)return NULL;
+    if (!ExistNodeGraph(graph, v)) return NULL;
 
     Node* aux = graph->headGraph;
-    AdjListNode* auxAdj = graph->headGraph->next;
+    
     while (aux->value != v) {
         aux = aux->nextNode;
     }
-    int weight = aux->next->weight;
+    AdjListNode* auxAdj = aux->next;
+    int weight = MAX_WEIGHT;
+    int id = aux->next->value;
     Node* visited = WhereIsNodeGraph(graph, auxAdj->value);
-    while (auxAdj) {
-        if (auxAdj->weight < weight && visited->visited==false) weight = auxAdj->weight;
+    while (auxAdj->next) {
+        if (auxAdj->weight < weight && visited->visited == false && auxAdj->weight != 0) {
+            weight = auxAdj->weight;
+            id = auxAdj->value;
+        }
+        if(auxAdj->next) auxAdj = auxAdj->next;
         visited = WhereIsNodeGraph(graph, auxAdj->value);
-        auxAdj = auxAdj->next;
     }
-    return auxAdj->value;
+    visited = WhereIsNodeGraph(graph, id);
+    return visited;
 }
 
 /**
     @brief  Função que faz a travessia do grafo em profundidade.
-    @param  graph  - 
-    @param  origin - 
+    @param  graph  - Apontador para a estrutura do grafo.
+    @param  origin - ID do vértice de origem.
     @retval        - 
 **/
 bool DepthFirstTraversal(GR* graph, int origin) {
@@ -73,21 +83,19 @@ bool DepthFirstTraversal(GR* graph, int origin) {
 
 /**
     @brief  Função que encontra um caminho em profundidade, de um determinado vértice até outro.
-    @param  graph   - 
-    @param  origin  - 
-    @param  destiny - 
+    @param  graph   - Apontador para a estrutura do grafo.
+    @param  origin  - ID do vértice de origem.
+    @param  destiny - ID do vértice de destino.
     @retval         - 
 **/
 bool DepthFirstSearch(GR* graph, int origin, int destiny) {
     Node* aux = WhereIsNodeGraph(graph, origin);
     AdjListNode* adj = aux->next;
     if (origin == destiny) {
-            ShowNodeWeight(aux->value, adj->weight);
             return true;
     }
     aux->visited = true;
-
-    ShowNodeWeight(adj->value, adj->weight);
+    
 
     while (adj) {
         Node* aux2 = WhereIsNodeGraph(graph, adj->value);
@@ -95,8 +103,9 @@ bool DepthFirstSearch(GR* graph, int origin, int destiny) {
             #ifdef DEBUG 
                 printf("vertice atual %d\n", aux2->value);
             #endif
-
+            ShowAdjWeight(aux->value, adj->value, adj->weight);
             bool exist = DepthFirstSearch(graph, adj->value, destiny);
+            if (exist) ResetVisitedNodes(graph);
             return exist;
         }
         else {
@@ -106,6 +115,14 @@ bool DepthFirstSearch(GR* graph, int origin, int destiny) {
     ResetVisitedNodes(graph);
 }
 
+/**
+    @brief  Função que conta o número de caminhos entre dois vértices de um grafo.
+    @param  graph     - Apontador para a estrutura do grafo.
+    @param  origin    - ID do vértice de origem.
+    @param  destiny   - ID do vértice de destino.
+    @param  pathCount - Número de caminhos entre os vértices.
+    @retval           - 
+**/
 int CountPaths(GR* graph, int origin, int destiny, int pathCount) {
     if (graph == NULL) return -1;
 
@@ -121,4 +138,28 @@ int CountPaths(GR* graph, int origin, int destiny, int pathCount) {
         }
     }
     return pathCount;
+}
+
+/**
+    @brief  Função que calcula o caminho mais curto entre dois vértices, usando o vértice mais próximo de cada um deles.
+    @param  graph   - Apontador para a estrutura do grafo.
+    @param  origin  - ID do vértice de origem.
+    @param  destiny - ID do vértice de destino.
+    @retval         - 
+**/
+int BruteForceShortestPath(GR* graph, int origin, int destiny) {
+    if (graph == NULL) return -1;
+    if (!ExistNodeGraph(graph, origin) || !ExistNodeGraph(graph, destiny)) return -2;
+    Node* aux = WhereIsNodeGraph(graph, origin);
+    aux->visited = true;
+    while (origin != destiny) {
+        aux = GetClosestVerticeAdjUnvisited(graph, origin);
+        
+        ShowNode(graph, aux);
+        Node* next = BruteForceShortestPath(graph, aux->value, destiny);
+        return 1;
+    }
+    
+    ResetVisitedNodes(graph);
+    
 }

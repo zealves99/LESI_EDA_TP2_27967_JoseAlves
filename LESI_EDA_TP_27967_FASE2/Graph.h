@@ -134,12 +134,6 @@ void AdjListNodeDestroy(AdjListNode* node);
 #pragma region Gestão de Grafos
 
 /**
-	@brief Função que mostra um grafo.
-	@param graph - Apontador para o grafo a mostrar.
-**/
-void ShowGraph(GR* gr);
-
-/**
 	@brief  Função que insere um nodo num grafo.
 	@param  graph - Apontador para o grafo.
 	@param  node  - Apontador para o nodo a inserir no grafo.

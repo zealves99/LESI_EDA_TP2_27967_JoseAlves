@@ -50,5 +50,8 @@ int main() {
     //resultado = CountPaths(graph, 1, 3, resultado);
     printf("Número de caminhos entre os vértices 0 e 3: %d\n", resultado);
 
+    printf("Caminho mais curto: \n");
+    resultado = BruteForceShortestPath(graph, 1, 13);
+
     res = SaveGraph("Graph.bin", graph);
 }

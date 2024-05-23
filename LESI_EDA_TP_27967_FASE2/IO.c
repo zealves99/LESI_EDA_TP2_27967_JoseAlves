@@ -23,3 +23,31 @@ void ShowNodeWeight(int id, int weight) {
     if (weight == 0);
     else printf("Vertice: %d -> Peso: %d\n", id, weight);
 }
+
+void ShowAdjWeight(int origin, int destiny, int weight) {
+    if (weight == 0);
+    else printf("Vertice: %2d -> Vertice: %2d                    Peso: %d\n", origin, destiny, weight);
+}
+
+/**
+    @brief Função que mostra um grafo.
+    @param graph - Apontador para o grafo a mostrar.
+**/
+void ShowGraph(GR* graph) {
+    Node* current = graph->headGraph;
+    while (current != NULL) {
+
+        printf("\nVertice %d->\n", current->value); //Mostra o vértice
+        AdjListNode* adjacent = current->next;
+        while (adjacent != NULL)
+        {
+            if (adjacent->weight == 0);
+
+            else {
+                printf("\t\t adjacent: %d \t  weight: %d\n", adjacent->value, adjacent->weight);
+            }
+            adjacent = adjacent->next;
+        }
+        current = current->nextNode;
+    }
+}
