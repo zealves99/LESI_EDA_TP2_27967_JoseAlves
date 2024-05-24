@@ -12,10 +12,18 @@
 #include<stdio.h>
 #include"Stack.h"
 
-int Push(int stack[], int top, int item) {
-    stack[++top] = item;
-    return top;
+Stack* CreateStack(int id) {
+    Stack* aux=(Stack*)
 }
+
+Stack* Push(Stack* stack, int idTop) {
+
+}
+
+//int Push(int stack[], int top, int item) {
+//    stack[++top] = item;
+//    return top;
+//}
 
 int Pop(int stack[], int top) {
     return --top;

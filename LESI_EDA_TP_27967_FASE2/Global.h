@@ -15,4 +15,4 @@
 #include"Graph.h"
 #include"IO.h"
 
-#define MAX_WEIGHT 2000000
+#define MAX_WEIGHT 10000
