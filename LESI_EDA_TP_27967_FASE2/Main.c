@@ -27,7 +27,7 @@ int main() {
     /*res = OpenGraph("Graph.bin", graph);
     ShowGraph(graph);*/
 
-    graph=ImportData("graph_edges.CSV", &res);
+    graph=ImportData("1m.CSV", &res);
     if (res == false) {
         printf("Erro ao Importar Dados!\n");
     }

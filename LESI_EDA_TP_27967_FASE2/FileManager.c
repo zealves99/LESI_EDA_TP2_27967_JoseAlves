@@ -41,33 +41,37 @@ GR* ImportData(char fileName[], bool* res) {
     //variáveis de controlo
     bool resNode = false;
     bool resAdj = false;
+    bool control = false;
 
     //posiciona o apontador no inicio do ficheiro.
-    fseek(fp, 0, SEEK_SET); 
+    fseek(fp, 0, SEEK_SET);
+    aux = CreateNode(vertex); //cria primeiro vertice
+    graph = InsertNodeGraph(graph, aux, &resNode);
     while (!feof(fp)) {
         fscanf(fp, "%d%c", &weight, &character);
         if (character == FILE_SEPARATOR) {
-            if (!(ExistNodeGraph(graph, vertex))) {
-                aux = CreateNode(vertex);
-                graph=InsertNodeGraph(graph, aux, &resNode);
+            if (weight!=0) { 
                 graph=InsertAdjaGraph(graph, vertex, column, weight, &resAdj);
             }
-            else {
+            /*else {
                 graph = InsertAdjaGraph(graph, vertex, column, weight, &resAdj);
-            }
+            }*/
             column++;
         }
         if (character == '\n') {
-            if (!(ExistNodeGraph(graph, vertex))) {
-                aux = CreateNode(vertex);
-                graph = InsertNodeGraph(graph, aux, &resNode);
+            if (weight!=0) {
+                /*aux = CreateNode(vertex);*/
+               /* graph = InsertNodeGraph(graph, aux, &resNode);*/
                 graph = InsertAdjaGraph(graph, vertex, column, weight, &resAdj);
             }
-            else {
+            /*else {
                 graph = InsertAdjaGraph(graph, vertex, column, weight, &resAdj);
-            }
+            }*/
             column=0;
             vertex++;
+            aux = CreateNode(vertex);
+            graph = InsertNodeGraph(graph, aux, &resNode);
+            //control = ExistNodeGraph(graph, vertex);
         }
     }
 
