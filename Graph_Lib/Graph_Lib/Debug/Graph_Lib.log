@@ -1,0 +1,36 @@
+﻿  DFT.c
+H:\LESI\EDA\Graph_Lib\Graph_Lib\DFT.c(107,26): warning C4013: 'SumAdj' undefined; assuming extern returning int
+H:\LESI\EDA\Graph_Lib\Graph_Lib\DFT.c(160,1): warning C4047: 'initializing': 'Node *' differs in levels of indirection from 'int'
+  Dijkstra.c
+  FileManager.c
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(49,49): warning C4047: 'function': 'int' differs in levels of indirection from 'bool *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(49,41): warning C4024: 'InsertNodeGraph': different types for formal and actual parameter 3
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(73,57): warning C4047: 'function': 'int' differs in levels of indirection from 'bool *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(73,49): warning C4024: 'InsertNodeGraph': different types for formal and actual parameter 3
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(78,54): warning C4047: '=': 'bool *' differs in levels of indirection from 'int'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(128,30): warning C4047: 'function': 'const char *' differs in levels of indirection from 'char **'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(128,22): warning C4024: 'fopen': different types for formal and actual parameter 1
+  Function.c
+  Graph.c
+H:\LESI\EDA\Graph_Lib\Graph_Lib\Graph.c(119,51): warning C4133: 'function': incompatible types - from 'Node *' to 'AdjListNode *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\Graph.c(119,57): warning C4133: '=': incompatible types - from 'AdjListNode *' to 'Node *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\Graph.c(293,63): warning C4133: 'function': incompatible types - from 'int *' to 'bool *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\Graph.c(366,54): warning C4047: 'function': 'int' differs in levels of indirection from 'bool *'
+H:\LESI\EDA\Graph_Lib\Graph_Lib\Graph.c(366,51): warning C4024: 'InsertNodeGraph': different types for formal and actual parameter 3
+  IO.c
+  Stack.c
+  Generating Code...
+H:\LESI\EDA\Graph_Lib\Graph_Lib\FileManager.c(163): warning C4715: 'OpenGraph': not all control paths return a value
+H:\LESI\EDA\Graph_Lib\Graph_Lib\DFT.c(82): warning C4716: 'DepthFirstTraversal': must return a value
+H:\LESI\EDA\Graph_Lib\Graph_Lib\DFT.c(166): warning C4715: 'BruteForceShortestPath': not all control paths return a value
+H:\LESI\EDA\Graph_Lib\Graph_Lib\DFT.c(117): warning C4715: 'DepthFirstSearch': not all control paths return a value
+  Graph_Lib.vcxproj -> H:\LESI\EDA\Graph_Lib\Debug\Graph_Lib.lib
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
+          1 file(s) copied.
