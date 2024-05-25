@@ -78,7 +78,7 @@ bool DepthFirstTraversal(GR* graph, int origin) {
         visited = visited->nextNode;
         adj = adj->next;
     }
-    aux->visited = false;
+    /*aux->visited = false;*/
 }
 
 /**
@@ -88,7 +88,7 @@ bool DepthFirstTraversal(GR* graph, int origin) {
     @param  destiny - ID do vértice de destino.
     @retval         - 
 **/
-bool DepthFirstSearch(GR* graph, int origin, int destiny) {
+bool DepthFirstSearch(GR* graph, int origin, int destiny, int* sum) {
     Node* aux = WhereIsNodeGraph(graph, origin);
     AdjListNode* adj = aux->next;
     if (origin == destiny) {
@@ -104,7 +104,8 @@ bool DepthFirstSearch(GR* graph, int origin, int destiny) {
                 printf("vertice atual %d\n", aux2->value);
             #endif
             ShowAdjWeight(aux->value, adj->value, adj->weight);
-            bool exist = DepthFirstSearch(graph, adj->value, destiny);
+            *sum = SumAdj(adj, &sum);
+            bool exist = DepthFirstSearch(graph, adj->value, destiny,sum);
             if (exist) ResetVisitedNodes(graph);
             return exist;
         }
@@ -121,7 +122,7 @@ bool DepthFirstSearch(GR* graph, int origin, int destiny) {
     @param  origin    - ID do vértice de origem.
     @param  destiny   - ID do vértice de destino.
     @param  pathCount - Número de caminhos entre os vértices.
-    @retval           - 
+    @retval           - Número de caminhos.
 **/
 int CountPaths(GR* graph, int origin, int destiny, int pathCount) {
     if (graph == NULL) return -1;
@@ -145,7 +146,7 @@ int CountPaths(GR* graph, int origin, int destiny, int pathCount) {
     @param  graph   - Apontador para a estrutura do grafo.
     @param  origin  - ID do vértice de origem.
     @param  destiny - ID do vértice de destino.
-    @retval         - 
+    @retval         - Sucesso ou Erro
 **/
 int BruteForceShortestPath(GR* graph, int origin, int destiny) {
     if (graph == NULL) return -1;
@@ -163,3 +164,35 @@ int BruteForceShortestPath(GR* graph, int origin, int destiny) {
     ResetVisitedNodes(graph);
     
 }
+
+/**
+    @brief  Função que calcula a soma das das adjacências.
+    @param  adj - Apontador para a lista de adjacências.
+    @param  sum - Apontador para a soma atual.
+    @retval     - Novo valor da soma.
+**/
+int SumAdj(AdjListNode* adj, int* sum) {
+    return (*sum + adj->weight);
+}
+
+//int Search(GR* graph, int origin, int dest) {
+//    Stack* stack = CreateStack(origin);
+//
+//}
+
+//int SearchRec(GR* graph, int origin, int dest, Stack* stack) {
+//    int found = 0;
+//    if (origin == dest)found = 1;
+//    else {
+//        Node* aux = WhereIsNodeGraph(graph, origin);
+//        AdjListNode* auxAdj = aux->next;
+//        aux->visited = true;
+//        stack = Push(stack, aux->value);
+//        for(auxAdj; auxAdj!=NULL&&!found;auxAdj=auxAdj->next)
+//            if (auxAdj->value != dest) {
+//                found = SearchRec(graph, auxAdj->value, dest, stack);
+//            }
+//    }
+//    return found;
+//    
+//}

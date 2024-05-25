@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DFT.h" />
+    <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="Global.h" />
@@ -149,6 +150,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DFT.c" />
+    <ClCompile Include="Dijkstra.c" />
     <ClCompile Include="FileManager.c" />
     <ClCompile Include="Function.c" />
     <ClCompile Include="Graph.c" />

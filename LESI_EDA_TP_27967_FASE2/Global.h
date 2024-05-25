@@ -3,7 +3,7 @@
 /**
 
     @file      Global.h
-    @brief     Ficheiro que contém os ficheiros .h necessários na maioria das funções.
+    @brief     Ficheiro que contém os ficheiros .h necessários na maioria das funções e algumas constantes.
     @details   ~
     @author    José António da Cunha Alves
     @date      22.05.2024
@@ -16,3 +16,4 @@
 #include"IO.h"
 
 #define MAX_WEIGHT 10000
+#define NV 11

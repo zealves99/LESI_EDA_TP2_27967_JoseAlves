@@ -1,4 +1,14 @@
 #pragma once
+/**
+
+	@file      Graph.c
+	@brief     Ficheiro que contém õs cabeçalhos das funções de gestão de grafos.
+	@details   ~
+	@author    José António da Cunha Alves
+	@date      12.05.2024
+	@copyright © José António da Cunha Alves, 2024. All right reserved.
+
+**/
 
 #include<stdbool.h>
 
@@ -16,6 +26,7 @@ typedef struct Node {
 	struct Node* nextNode; //apontador para o proximo vertice.
 	AdjListNode* next; //apontador para a lista de adjacencias.
 	bool visited;
+	int numAdj;
 }Node;
 
 //Grafo

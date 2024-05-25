@@ -1,11 +1,11 @@
-/**
+ï»¿/**
 
     @file      Graph.c
-    @brief     Ficheiro que contém a implementação das funções de gestão de grafos.
+    @brief     Ficheiro que contÃ©m a implementaÃ§Ã£o das funÃ§Ãµes de gestÃ£o de grafos.
     @details   ~
-    @author    José António da Cunha Alves
+    @author    JosÃ© AntÃ³nio da Cunha Alves
     @date      12.05.2024
-    @copyright © José António da Cunha Alves, 2024. All right reserved.
+    @copyright Â© JosÃ© AntÃ³nio da Cunha Alves, 2024. All right reserved.
 
 **/
 
@@ -15,7 +15,7 @@
 
 #pragma region Vertices
 /**
-    @brief  Função que cria um nodo.
+    @brief  FunÃ§Ã£o que cria um nodo.
     @param  value - Valor a atribuir ao nodo.
     @retval       - Apontador para o nodo.
 **/
@@ -26,15 +26,16 @@ Node* CreateNode(int value) {
     aux->next = NULL;
     aux->nextNode = NULL;
     aux->visited = false;
+    aux->numAdj = 0;
     return aux;
 }
 
 /**
-    @brief  Função que verifica se um nodo existe na memória.
-    @param  head  - Apontador para o início da lista de nodos.
-    @param  value - Valor do vértice a encontrar.
+    @brief  FunÃ§Ã£o que verifica se um nodo existe na memÃ³ria.
+    @param  head  - Apontador para o inÃ­cio da lista de nodos.
+    @param  value - Valor do vÃ©rtice a encontrar.
     @retval true - O nodo existe.
-    @retval false - O nodo não existe.
+    @retval false - O nodo nÃ£o existe.
 **/
 bool ExistNode(Node* head, int value) {
     if (head == NULL) return false;
@@ -47,7 +48,7 @@ bool ExistNode(Node* head, int value) {
 }
 
 /**
-    @brief Função que liberta a memória de um nodo.
+    @brief FunÃ§Ã£o que liberta a memÃ³ria de um nodo.
     @param node - Apontador para o nodo a eliminar.
 **/
 void DestroyNode(Node* node) {
@@ -55,33 +56,33 @@ void DestroyNode(Node* node) {
 }
 
 /**
-    @brief  Função que insere um nodo na lista de nodos.
-    @param  head    - Apontador para o início da lista de nodos.
-    @param  newNode - Apontador para o nodo a adicionar à lista.
-    @param  res     - Variável de controlo de sucesso.
+    @brief  FunÃ§Ã£o que insere um nodo na lista de nodos.
+    @param  head    - Apontador para o inÃ­cio da lista de nodos.
+    @param  newNode - Apontador para o nodo a adicionar Ã  lista.
+    @param  res     - VariÃ¡vel de controlo de sucesso.
     @retval         - Apontador para a lista de nodos.
 **/
 Node* InsertNode(Node* head, Node* newNode, bool* res) {
     *res = false;
 
-    //Caso ainda não existam vértices, insere no início.
+    //Caso ainda nÃ£o existam vÃ©rtices, insere no inÃ­cio.
     if (head == NULL) {
         *res = 1;
         head = newNode;
         return head;
     }
 
-    //Testa se já existe um vértice com esse valor.
+    //Testa se jÃ¡ existe um vÃ©rtice com esse valor.
     if (ExistNode(head, newNode->value) == true) return head;
     else {
-        //Procura posição onde inserir o novo vértice. Insere no fim.
+        //Procura posiÃ§Ã£o onde inserir o novo vÃ©rtice. Insere no fim.
         Node* aux = head;
         while (aux->nextNode != NULL) {
             aux = aux->nextNode;
         }
-        //Estando na posição correta, insere.
+        //Estando na posiÃ§Ã£o correta, insere.
         *res = true;
-        if (aux == NULL)//Este é o primeiro valor e, por isso, será o novo head.
+        if (aux == NULL)//Este Ã© o primeiro valor e, por isso, serÃ¡ o novo head.
         {
             head = newNode;
         }
@@ -93,28 +94,28 @@ Node* InsertNode(Node* head, Node* newNode, bool* res) {
 }
 
 /**
-    @brief  Função que elimina um nodo da lista de nodos.
-    @param  head    - Apontador para o início da lista de nodos.
+    @brief  FunÃ§Ã£o que elimina um nodo da lista de nodos.
+    @param  head    - Apontador para o inÃ­cio da lista de nodos.
     @param  codNode - Valor do nodo a eliminar.
-    @param  res     - Variável de controlo de sucesso.
-    @retval         - Apontador para o início da lista de nodos.
+    @param  res     - VariÃ¡vel de controlo de sucesso.
+    @retval         - Apontador para o inÃ­cio da lista de nodos.
 **/
 Node* DeleteNode(Node* head, int codNode, bool* res) {
     *res = false;
     if (head == NULL) return NULL;
 
-    //Encontra o vértice a eliminar.
+    //Encontra o vÃ©rtice a eliminar.
     Node* prev = NULL;
     Node* aux = head;
     while (aux->value != codNode) {
         prev = aux;
         aux = aux->nextNode;
     }
-    if (!aux)return head; //Não existe o vértice a eliminar.
+    if (!aux)return head; //NÃ£o existe o vÃ©rtice a eliminar.
     
-    //Caso o vértice a eliminar seja o primeiro.
+    //Caso o vÃ©rtice a eliminar seja o primeiro.
     if (prev == NULL) {
-        //Elimina as adjacências do vértice a eliminar.
+        //Elimina as adjacÃªncias do vÃ©rtice a eliminar.
         aux->nextNode = DeleteAllAdj(aux->nextNode, res);
         if (*res == false)return head;
         head = aux->nextNode;
@@ -128,16 +129,16 @@ Node* DeleteNode(Node* head, int codNode, bool* res) {
 }
 
 /**
-    @brief  Função que procura a posição de um nodo na lista de nodos.
-    @param  head  - Apontador para o início da lista de nodos.
+    @brief  FunÃ§Ã£o que procura a posiÃ§Ã£o de um nodo na lista de nodos.
+    @param  head  - Apontador para o inÃ­cio da lista de nodos.
     @param  value - Valor do nodo a procurar.
-    @retval       - Retorna o nodo procurado, caso exista. Caso contrário, retorna NULL. 
+    @retval       - Retorna o nodo procurado, caso exista. Caso contrÃ¡rio, retorna NULL. 
 **/
 Node* WhereisNode(Node* head, int value){
     if (head == NULL) return NULL;
     Node* aux = head;
     while (aux) {
-        if (aux->value == value) return aux; //Devolve o vértice que procuramos.
+        if (aux->value == value) return aux; //Devolve o vÃ©rtice que procuramos.
         aux = aux->nextNode;
     }
     return NULL;
@@ -146,10 +147,10 @@ Node* WhereisNode(Node* head, int value){
 
 #pragma region Adjacencies
 /**
-    @brief  Função que reserva lugar na memória para uma nova adjacência.
-    @param  value  - Valor do vértice adjacente.
+    @brief  FunÃ§Ã£o que reserva lugar na memÃ³ria para uma nova adjacÃªncia.
+    @param  value  - Valor do vÃ©rtice adjacente.
     @param  weight - Peso da aresta a criar.
-    @retval        - Retorna um apontador para a adjacência.
+    @retval        - Retorna um apontador para a adjacÃªncia.
 **/
 AdjListNode* NewAdjacent(int value, int weight) {
     AdjListNode* adjacent = (AdjListNode*)malloc(sizeof(AdjListNode));
@@ -161,7 +162,7 @@ AdjListNode* NewAdjacent(int value, int weight) {
 }
 
 /**
-    @brief Função que liberta a memória de um nodo de adjacência.
+    @brief FunÃ§Ã£o que liberta a memÃ³ria de um nodo de adjacÃªncia.
     @param node - Apontador para o nodo a eliminar.
 **/
 void AdjListNodeDestroy(AdjListNode* node) {
@@ -169,24 +170,24 @@ void AdjListNodeDestroy(AdjListNode* node) {
 }
 
 /**
-    @brief  Função que elimina uma adjacência.
-    @param  listAdj - Apontador para o início da lista de adjacências.
-    @param  codAdj  - Valor do vértice a eliminar adjacência.
-    @param  res     - Variável de controlo de sucesso.
-    @retval         - Apontador para o início da lista de adjacências.
+    @brief  FunÃ§Ã£o que elimina uma adjacÃªncia.
+    @param  listAdj - Apontador para o inÃ­cio da lista de adjacÃªncias.
+    @param  codAdj  - Valor do vÃ©rtice a eliminar adjacÃªncia.
+    @param  res     - VariÃ¡vel de controlo de sucesso.
+    @retval         - Apontador para o inÃ­cio da lista de adjacÃªncias.
 **/
 AdjListNode* DeleteAdj(AdjListNode* listAdj, int codAdj, bool* res) {
     *res = false;
     if (listAdj == NULL) return NULL;
-    //Procura a adjacência a eliminar.
+    //Procura a adjacÃªncia a eliminar.
     AdjListNode* aux = listAdj;
     AdjListNode* prev = NULL;
     while (aux && aux->value != codAdj) {
         prev = aux;
         aux = aux->next;
     }
-    if (!aux) return listAdj; //A adjacência que queremos eliminar já não existe.
-    //A adjacência a eliminar é o início.
+    if (!aux) return listAdj; //A adjacÃªncia que queremos eliminar jÃ¡ nÃ£o existe.
+    //A adjacÃªncia a eliminar Ã© o inÃ­cio.
     if (prev == NULL) {
         listAdj = aux->next;
     }
@@ -199,15 +200,15 @@ AdjListNode* DeleteAdj(AdjListNode* listAdj, int codAdj, bool* res) {
 }
 
 /**
-    @brief  Função que elimina todas as adjacências de um vértice.
-    @param  listAdj - Apontador para o início da lista de adjacências do vértice a eliminar.
-    @param  res     - Variável de controlo de sucesso.
-    @retval         - Apontador para o início da lista de adjacências do vértice.
+    @brief  FunÃ§Ã£o que elimina todas as adjacÃªncias de um vÃ©rtice.
+    @param  listAdj - Apontador para o inÃ­cio da lista de adjacÃªncias do vÃ©rtice a eliminar.
+    @param  res     - VariÃ¡vel de controlo de sucesso.
+    @retval         - Apontador para o inÃ­cio da lista de adjacÃªncias do vÃ©rtice.
 **/
 AdjListNode* DeleteAllAdj(AdjListNode* listAdj, bool* res) {
     *res = false;
     if (listAdj == NULL)return NULL;
-    //Percorre a lista e elimina as adjacências.
+    //Percorre a lista e elimina as adjacÃªncias.
     AdjListNode* aux = listAdj;
     while (aux) {
         if (aux){
@@ -222,11 +223,11 @@ AdjListNode* DeleteAllAdj(AdjListNode* listAdj, bool* res) {
 }
 
 /**
-    @brief  Função que elimina a adjacência de um nodo com todos os outros nodos.
-    @param  node   - Apontador para o início da lista de nodos.
+    @brief  FunÃ§Ã£o que elimina a adjacÃªncia de um nodo com todos os outros nodos.
+    @param  node   - Apontador para o inÃ­cio da lista de nodos.
     @param  codAdj - Valor do nodo a eliminar.
-    @param  res    - Variável de controlo de sucesso.
-    @retval        - Apontador para o início da lista de nodos.
+    @param  res    - VariÃ¡vel de controlo de sucesso.
+    @retval        - Apontador para o inÃ­cio da lista de nodos.
 **/
 Node* DeleteAdjacenceAllNodes(Node* node, int codAdj, bool* res) {
     *res = false;
@@ -241,20 +242,20 @@ Node* DeleteAdjacenceAllNodes(Node* node, int codAdj, bool* res) {
 }
 
 /**
-    @brief  Função que cria uma adjacência.
-    @param  listAdj - Apontador para o início da lista de adjacências.
-    @param  idDest  - ID do vértice de destino.
+    @brief  FunÃ§Ã£o que cria uma adjacÃªncia.
+    @param  listAdj - Apontador para o inÃ­cio da lista de adjacÃªncias.
+    @param  idDest  - ID do vÃ©rtice de destino.
     @param  weight  - Peso da aresta.
-    @retval         - Apontador para o início da lista de adjacências.
+    @retval         - Apontador para o inÃ­cio da lista de adjacÃªncias.
 **/
 AdjListNode* InsertAdj(AdjListNode* listAdj, int idDest, int weight) {
     AdjListNode* newAdj;
-    if ((newAdj = NewAdjacent(idDest, weight)) == NULL) return listAdj; //Impossível criar a nova adjacência.
-    //Caso ainda não existam adjacências na lista:
+    if ((newAdj = NewAdjacent(idDest, weight)) == NULL) return listAdj; //ImpossÃ­vel criar a nova adjacÃªncia.
+    //Caso ainda nÃ£o existam adjacÃªncias na lista:
         if (listAdj == NULL) {
             listAdj = newAdj; //Insere no inicio.
         }
-        else {//Insere a adjacência no fim.
+        else {//Insere a adjacÃªncia no fim.
             AdjListNode* aux = listAdj;
             while (aux->next != NULL) {
                 aux = aux->next;
@@ -268,20 +269,20 @@ AdjListNode* InsertAdj(AdjListNode* listAdj, int idDest, int weight) {
 
 #pragma region Graphs
 /**
-    @brief  Função que insere um nodo num grafo.
+    @brief  FunÃ§Ã£o que insere um nodo num grafo.
     @param  graph - Apontador para o grafo.
     @param  node  - Apontador para o nodo a inserir no grafo.
-    @param  res   - Variável de controlo de sucesso.
+    @param  res   - VariÃ¡vel de controlo de sucesso.
     @retval       - Apontador para o grafo.
 **/
 GR* InsertNodeGraph(GR* graph, Node* node, int res) {
     res = 1;
-    //Verificações:
-    if (node == NULL) { //Vértice Inválido
+    //VerificaÃ§Ãµes:
+    if (node == NULL) { //VÃ©rtice InvÃ¡lido
         res = 0;
         return graph;
     }
-    if (graph == NULL) { //Não existe grafo.
+    if (graph == NULL) { //NÃ£o existe grafo.
         res = -1;
         return NULL;
     }
@@ -295,10 +296,10 @@ GR* InsertNodeGraph(GR* graph, Node* node, int res) {
 }
 
 /**
-    @brief  Função que elimina um nodo de um grafo.
+    @brief  FunÃ§Ã£o que elimina um nodo de um grafo.
     @param  graph   - Apontador para o grafo.
-    @param  codNode - Código do nodo a eliminar.
-    @param  res     - Variável de controlo de sucesso.
+    @param  codNode - CÃ³digo do nodo a eliminar.
+    @param  res     - VariÃ¡vel de controlo de sucesso.
     @retval         - Apontador para o grafo.
 **/
 GR* DeleteNodeGraph(GR* graph, int codNode, bool* res) {
@@ -312,17 +313,17 @@ GR* DeleteNodeGraph(GR* graph, int codNode, bool* res) {
 }
 
 /**
-    @brief  Função que elimina uma adjacência de um grafo.
+    @brief  FunÃ§Ã£o que elimina uma adjacÃªncia de um grafo.
     @param  graph   - Apontador para o grafo.
-    @param  origin  - ID do vértice de origem.
-    @param  destiny - ID do vértice de destino
-    @param  res     - Variável de controlo de sucesso.
+    @param  origin  - ID do vÃ©rtice de origem.
+    @param  destiny - ID do vÃ©rtice de destino
+    @param  res     - VariÃ¡vel de controlo de sucesso.
     @retval         - Apontador para o grafo.
 **/
 GR* DeleteAdjGraph(GR* graph, int origin, int destiny, bool* res) {
     *res = false;
     if (graph == NULL)return NULL;
-    //Verificar se os vértices de origem e destino existem no grafo.
+    //Verificar se os vÃ©rtices de origem e destino existem no grafo.
     Node* originNode = WhereIsNodeGraph(graph,origin);
     if (originNode == NULL)return graph;
     Node* destinyNode = WhereIsNodeGraph(graph, destiny);
@@ -333,10 +334,10 @@ GR* DeleteAdjGraph(GR* graph, int origin, int destiny, bool* res) {
 }
 
 /**
-    @brief  Função que procura um nodo num grafo.
+    @brief  FunÃ§Ã£o que procura um nodo num grafo.
     @param  graph  - Apontador para o grafo.
     @param  idNode - ID do nodo a procurar.
-    @retval        - Retorna o nodo procurado, caso exista. Caso contrário, retorna NULL.
+    @retval        - Retorna o nodo procurado, caso exista. Caso contrÃ¡rio, retorna NULL.
 **/
 Node* WhereIsNodeGraph(GR* graph, int idNode){
     if (graph == NULL)return NULL;
@@ -344,12 +345,12 @@ Node* WhereIsNodeGraph(GR* graph, int idNode){
 }
 
 /**
-    @brief  Função que insere uma adjacência num grafo.
+    @brief  FunÃ§Ã£o que insere uma adjacÃªncia num grafo.
     @param  graph     - Apontador para o grafo.
-    @param  idOrigin  - ID do vértice de origem.
-    @param  idDestiny - ID do vértice de destino.
+    @param  idOrigin  - ID do vÃ©rtice de origem.
+    @param  idDestiny - ID do vÃ©rtice de destino.
     @param  weight    - Peso da aresta.
-    @param  res       - Variáavel de controlo de sucesso.
+    @param  res       - VariÃ¡avel de controlo de sucesso.
     @retval           - Apontador para o grafo.
 **/
 GR* InsertAdjaGraph(GR* graph, int idOrigin, int idDestiny, int weight, bool* res) {
@@ -359,19 +360,20 @@ GR* InsertAdjaGraph(GR* graph, int idOrigin, int idDestiny, int weight, bool* re
     if (originNode == NULL)return graph;
     Node* destinyNode = WhereIsNodeGraph(graph, idDestiny);
     
-    //Se não existir o vértice de destino, cria-o e insere-o no grafo.
+    //Se nÃ£o existir o vÃ©rtice de destino, cria-o e insere-o no grafo.
     if (destinyNode == NULL) {
         destinyNode=CreateNode(idDestiny);
         graph=InsertNodeGraph(graph, destinyNode, res);
     }
 
     originNode->next = InsertAdj(originNode->next, idDestiny, weight);
+    originNode->numAdj++;
     return graph;
 }
 
 /**
-    @brief  Função que aloca memória para e inicia um grafo.
-    @param  v - Número de vértices a incluir num grafo.
+    @brief  FunÃ§Ã£o que aloca memÃ³ria para e inicia um grafo.
+    @param  v - NÃºmero de vÃ©rtices a incluir num grafo.
     @retval   - Apontador para o grafo.
 **/
 GR* CreateGraph(int v) {
@@ -384,11 +386,11 @@ GR* CreateGraph(int v) {
 }
 
 /**
-    @brief  Função que verifica se um nodo existe num grafo.
+    @brief  FunÃ§Ã£o que verifica se um nodo existe num grafo.
     @param  graph  - Apontador para o grafo.
     @param  idNode - ID do nodo a procurar.
     @retval  true  - Caso o nodo exista.
-    @retval  false  - Caso o nodo não exista.
+    @retval  false  - Caso o nodo nÃ£o exista.
 **/
 bool ExistNodeGraph(GR* graph, int idNode) {
     if (graph == NULL)return false;
@@ -396,3 +398,4 @@ bool ExistNodeGraph(GR* graph, int idNode) {
 }
 
 #pragma endregion
+

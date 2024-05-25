@@ -12,6 +12,7 @@
 **/
 
 #include"Global.h"
+#include "Stack.h"
 
 /**
     @brief  Função que verifica qual o vértice adjacente mais próximo não visitado.
@@ -36,7 +37,7 @@ bool DepthFirstTraversal(GR* graph, int origin);
     @param  destiny - ID do vértice de destino.
     @retval         -
 **/
-bool DepthFirstSearch(GR* graph, int origin, int destiny);
+bool DepthFirstSearch(GR* graph, int origin, int destiny, int* sum);
 
 /**
     @brief Função que coloca todos os vértices de um grafo como 'não visitado'.
@@ -62,3 +63,13 @@ int CountPaths(GR* graph, int origin, int destiny, int pathCount);
     @retval         -
 **/
 int BruteForceShortestPath(GR* graph, int origin, int destiny);
+
+/**
+    @brief  Função que calcula a soma das das adjacências.
+    @param  adj - Apontador para a lista de adjacências.
+    @param  sum - Apontador para a soma atual.
+    @retval     - Novo valor da soma.
+**/
+int SumAdj(AdjListNode* adj, int* sum);
+
+//int SearchRec(GR* graph, int origin, int dest, Stack* stack);

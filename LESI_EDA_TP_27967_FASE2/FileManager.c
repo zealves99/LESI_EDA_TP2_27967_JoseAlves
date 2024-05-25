@@ -90,9 +90,9 @@ GR* ImportData(char fileName[], bool* res) {
 bool SaveGraph(char fileName[], GR* graph) {
     FILE* fp = fopen(fileName, "wb");
     if (fp == NULL) return false;
-    GrFile graphFile;
+    /*GrFile graphFile;
     graphFile.v = graph->numNodes;
-    fwrite(&graphFile, 1, sizeof(graphFile), fp);
+    fwrite(&graphFile, 1, sizeof(graphFile), fp);*/
 
     Node* aux = graph->headGraph;
     NodeFile node;
@@ -100,7 +100,9 @@ bool SaveGraph(char fileName[], GR* graph) {
     AdjListNodeFile adj;
 
     while (aux != NULL) {
+        auxAdj = aux->next;
         node.value = aux->value;
+        node.numAdj = aux->numAdj;
         fwrite(&node, 1, sizeof(NodeFile), fp);
         while (auxAdj != NULL) {
             adj.value = auxAdj->value;
@@ -109,6 +111,7 @@ bool SaveGraph(char fileName[], GR* graph) {
             auxAdj = auxAdj->next;
         }
         aux = aux->nextNode;
+        
     }
 
     fclose(fp);
@@ -124,37 +127,48 @@ bool SaveGraph(char fileName[], GR* graph) {
 bool OpenGraph(char* fileName[], GR* graph) {
     FILE* fp = fopen(fileName, "rb");
     if (fp == NULL) return false;
-    GrFile* graphAux = (GrFile*)malloc(sizeof(GrFile));
+    /*GrFile graphAux = (GrFile*)malloc(sizeof(GrFile));*/
     /*graphAux->v = 0;*/
-    NodeFile* nodeAux = (NodeFile*)malloc(sizeof(NodeFile));
+    NodeFile nodeAux /*= (NodeFile*)malloc(sizeof(NodeFile))*/;
     /*nodeAux->value = -1;*/
-    AdjListNodeFile* adjAux = (AdjListNodeFile*)malloc(sizeof(AdjListNodeFile));
+    AdjListNodeFile adjAux /*= (AdjListNodeFile*)malloc(sizeof(AdjListNodeFile))*/;
     /*adjAux->value = -1;
     adjAux->weight = -1;*/
 
-    Node* node= (Node*)malloc(sizeof(Node));
-    AdjListNode* adj = (AdjListNode*)malloc(sizeof(AdjListNode));
+    /*Node* node= (Node*)malloc(sizeof(Node));
+    AdjListNode* adj = (AdjListNode*)malloc(sizeof(AdjListNode));*/
 
-    fread(graphAux, 1, sizeof(GrFile), fp);
-    graph=CreateGraph(graphAux->v);
+    /*fread(&graphAux, 1, sizeof(GrFile), fp);*/
+    /*graph=CreateGraph(graphAux.v);*/
 
     int res=false;
     bool result = false;
 
     while (!feof(fp)) {
-        fread(nodeAux, 1, sizeof(NodeFile), fp);
-        nodeAux = CreateNode(nodeAux->value);
-        graph = InsertNodeGraph(graph, nodeAux, res);
+        fread(&nodeAux, 1, sizeof(NodeFile), fp);
+        Node* node = CreateNodeFromFile(nodeAux);
+        graph = InsertNodeGraph(graph, node, res);
 
-        for (int i = 0; i < graph->numNodes; i++) {
-            fread(adjAux, 1, sizeof(AdjListNodeFile), fp);
-            adj = NewAdjacent(adjAux->value, adjAux->weight); 
+        for (int i = 0; i < node->numAdj; i++) {
+            fread(&adjAux, sizeof(AdjListNodeFile), 1, fp);
+            AdjListNode* adj = NewAdjacent(adjAux.value, adjAux.weight);
             graph = InsertAdjaGraph(graph, node->value, adj->value, adj->weight, &result);
         }
 
     }
 
-    free(graphAux);
-    free(nodeAux);
-    free(adjAux);
+    /*free(graphAux);*/
+    /*free(nodeAux);
+    free(adjAux);*/
+}
+
+/**
+    @brief  Função que cria um nodo em memória, a partir de um nodo importado de um ficheiro.
+    @param  nodeFile - Nodo importado.
+    @retval          - Apontador para o nodo em memória.
+**/
+Node* CreateNodeFromFile(NodeFile nodeFile) {
+    Node* node = CreateNode(nodeFile.value);
+    node->numAdj = nodeFile.numAdj;
+    return node;
 }
