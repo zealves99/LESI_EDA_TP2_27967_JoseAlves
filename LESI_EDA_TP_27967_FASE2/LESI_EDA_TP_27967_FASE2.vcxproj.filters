@@ -15,54 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Graph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="FileManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Function.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DFT.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IO.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dijkstra.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\Graph_LIB\DFT.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graph_LIB\Global.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graph_LIB\Graph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Graph_LIB\Stack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Graph.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FileManager.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Function.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stack.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DFT.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="IO.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dijkstra.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

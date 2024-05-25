@@ -18,6 +18,8 @@
 #include "Stack.h"
 #include"Dijkstra.h"
 
+#pragma (lib, "Graph_Lib.lib")
+
 int main() {
 
     setlocale(LC_ALL, "Portuguese");

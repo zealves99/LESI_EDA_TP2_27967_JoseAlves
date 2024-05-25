@@ -120,6 +120,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>H:\LESI\EDA\LESI_EDA_TP2_27967_JoseAlves\LESI_EDA_TP_27967_FASE2\Graph_Lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,24 +140,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DFT.h" />
+    <ClInclude Include="..\Graph_LIB\DFT.h" />
+    <ClInclude Include="..\Graph_LIB\Global.h" />
+    <ClInclude Include="..\Graph_LIB\Graph.h" />
+    <ClInclude Include="..\Graph_LIB\Stack.h" />
     <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="Function.h" />
-    <ClInclude Include="Global.h" />
-    <ClInclude Include="Graph.h" />
     <ClInclude Include="IO.h" />
-    <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DFT.c" />
-    <ClCompile Include="Dijkstra.c" />
-    <ClCompile Include="FileManager.c" />
-    <ClCompile Include="Function.c" />
-    <ClCompile Include="Graph.c" />
-    <ClCompile Include="IO.c" />
     <ClCompile Include="Main.c" />
-    <ClCompile Include="Stack.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
